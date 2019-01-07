@@ -1,0 +1,120 @@
+﻿@using MCVWithSotre.Database
+
+@{
+    ViewBag.Title = "Index_RPCustomer";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var dataCustomer = ViewBag.ListCustomer as IEnumerable<sp_Customer_List_Result>;
+}
+<h2>BÁO CÁO THEO KHÁCH HÀNG</h2>
+<form method="POST" action="/ReportCustomer/SearchCustomer">
+    <div class="container">
+        <div class="row" style="margin-bottom: 15px">
+            <div class="col-md-3">
+                Chọn khách hàng
+            </div>
+            <div class="col-md-3">
+                <select class="form-control listkh">
+                    <option value="0">Chọn Khách Hàng</option>
+                    @foreach (var item in dataCustomer)
+                    {
+                        <option value="@item.CustomerID">@item.CustomerName</option>
+                    }
+                </select>
+            </div>
+            <div class="col-md-1">
+                
+            </div>
+            <div class="col-md-2">
+                
+            </div>
+            <div class="col-md-2">
+
+            </div>
+            <div class="col-md-1">
+                <input type="button" class="btn btn-danger btn-SearchRP" value="Báo Cáo" />
+            </div>
+        </div>
+    </div>
+</form>
+<table class="table">
+    <thead>
+    <tr>
+        <th>Sản Phẩm</th>
+        <th>Ngày Mua</th>
+        <th>Người tạo</th>
+        <th>Tổng sản phẩm</th>
+        <th>Tổng tiền</th>
+    </tr>
+    </thead>
+    <tbody class="main-sp">
+        <tr></tr>
+    </tbody>
+</table>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $(".btn-SearchRP").on("click", function(event) {
+            event.preventDefault();
+            var CustomerId = $(".listkh").val();
+            var obj = new Object();
+            obj.CustomerId = CustomerId;
+            $.ajax({
+                url: "/ReportCustomer/SearchCustomer",
+                type: "POST",
+                data: JSON.stringify(obj),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (data) {
+                    //console.log(data);
+                    var html = "";
+                    $.each(data, function (k, v) {
+                        html += "<tr>";
+                        html += "<td>" + v.ProductName + "</td>";
+                        html += "<td>" + formatdates(v.CreateDate,'d/k/y h:m b') + "</td>";
+                        html += "<td>" + v.CreateBy + "</td>";
+                        html += "<td>" + v.Quanlity + "</td>";
+                        html += "<td>" + v.TotalMoney + "</td>";
+                        html += "</tr>";
+                    });
+                    $(".main-sp").html(html);
+                }
+            });
+        });
+    });
+    //Hàm check lỗi ngày tháng.
+    function formatdates(_date, format) {
+        if (_date !== null && typeof _date != 'undefined') {
+            var date = _date;
+            var subStrDate = date.substring(6);
+            var parseIntDate = parseInt(subStrDate);
+            var date = new Date(parseIntDate);
+
+            var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+                nummonths = ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12'];
+            getPaddedComp = function (comp) {
+                return ((parseInt(comp) < 10) ? ('0' + comp) : comp);
+                },
+                formattedDate = format,
+                o = {
+                    "y+": date.getFullYear(), // year
+                    "M+": months[date.getMonth()], //month text
+                    "k+": nummonths[date.getMonth()], //month number
+                    "d+": getPaddedComp(date.getDate()), //day
+                    "h+": getPaddedComp((date.getHours() > 12) ? date.getHours() % 12 : date.getHours()), //hour
+                    "H+": getPaddedComp(date.getHours()), //hour
+                    "m+": getPaddedComp(date.getMinutes()), //minute
+                    "s+": getPaddedComp(date.getSeconds()), //second
+                    "S+": getPaddedComp(date.getMilliseconds()), //millisecond,
+                    "b+": (date.getHours() >= 12) ? 'PM' : 'AM'
+                };
+
+            for (var k in o) {
+                if (new RegExp("(" + k + ")").test(format)) {
+                    formattedDate = formattedDate.replace(RegExp.$1, o[k]);
+                }
+            }
+            return formattedDate;
+        } else
+            return 'N/A';
+    };
+</script>

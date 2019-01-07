@@ -1,0 +1,96 @@
+﻿@{
+    var T = NetCoSoft.Service.Languages.WebViewPage.T;
+}
+
+@{
+    ViewBag.Title = "Index_CRM_spCustomerWallet";
+    Layout = "~/Views/Shared/_LayoutCrm.cshtml";
+}
+
+<link href="~/Content/Office.css" rel="stylesheet" />
+<!-- BEGIN SAMPLE FORM PORTLET-->
+<div class="row">
+    <div class="col-md-12 margin-bottom-5">
+        <div class="pull-right"><a href="#" class="btn btn-danger btn-showForm"><i class="fa fa-plus icon-form"></i> @T("Them-moi")</a></div>
+
+    </div>
+</div>
+
+<div class="st-form formprotlet display-none">
+    <div class="row">
+        <div class="extend-container col-md-12">
+            <div class="extend-head st-bg-4">
+                <div class="extend-title Titleform">@T("Them-moi")</div>
+            </div>
+            <div class="extend-body row">
+                <div class="col-md-6">
+                    <div class="inputField">
+                        <input type="number" class="inputText width-100 CustomerId" maxlength="50">
+                        <input hidden="hidden" class="WalletId" />
+                        <span class="label">Mã Khách Hàng</span>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="inputField">
+                        <input type="number" class="inputText width-100 Money" maxlength="250">
+                        <span class="label">Số Tiền</span>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="inputField">
+                        <input type="number" class="inputText width-100 CreateBy" maxlength="250">
+                        <span class="label">Mã Người Tạo</span>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="inputField">
+                        <input type="datetime" class="inputText width-100 CreateDate" maxlength="250">
+                        <span class="label">Ngày Tạo</span>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="inputField">
+                        <input type="datetime" class="inputText width-100 EditDate" maxlength="250">
+                        <span class="label">Ngày Sửa</span>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="inputField">
+                        <input type="number" class="inputText width-100 EditBy" maxlength="250">
+                        <span class="label">Mã Người Sửa</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12 margin-top-10 text-center">
+            <button class="btn btn-danger btn-Save"> <i class="fa fa-save"></i>@T("Luu")</button>
+            <button class="btn btn-default btn-clearForm"> <i class="fa fa-times-circle"></i>@T("Huy-bo")</button>
+        </div>
+        <div class="col-md-4 col-md-offset-4 margin-top-20">
+            <div class="caption messagealertmain"></div>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+</div>
+<!-- END SAMPLE FORM PORTLET-->
+<!-- BEGIN TABLE PORTLET-->
+<div class="portlet box light-grey listproterler">
+    <div class="extend-head st-bg-6">
+        <span class="extend-title">
+            Ví Khách Hàng
+        </span>
+    </div>
+
+    <div class="extend-body row">
+
+        <div class="portlet-body">
+            <div class="TableSearch List-Data">
+
+            </div>
+        </div>
+    </div>
+</div>
+<!-- END TABLE PORTLET-->
+<!-- Bin jquery -->
+<script src="~/ScriptSys/QlkhScript/CRM_spCustomerWalletScript.js"></script>
+<!-- End Bin Jquery -->

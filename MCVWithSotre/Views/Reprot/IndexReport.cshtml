@@ -1,0 +1,79 @@
+﻿@using MCVWithSotre.Database
+
+@{
+    ViewBag.Title = "IndexReport";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<form method="POST" action="/Reprot/SearchCustomer">
+    <div class="container">
+        <h1>Báo Cáo</h1>
+        <div class="row" style="margin-bottom: 15px">
+            <div class="col-md-1">
+                Từ Ngày
+            </div>
+            <div class="col-md-2">
+                <input class="form-control tungay" type="date" name="Tungay" value=""/>
+            </div>
+            <div class="col-md-3">
+            </div>
+            <div class="col-md-1">
+                Đến Ngày
+            </div>
+            <div class="col-md-2">
+                <input class="form-control denngay" type="date" name="Denngay"/>
+            </div>
+            <div class="col-md-2">
+
+            </div>
+            <div class="col-md-1">
+                <input type="button" class="btn btn-danger btn-SearchRP" value="Báo Cáo" />
+            </div>
+        </div>
+    </div>
+</form>
+<table class="table">
+    <thead>
+    <tr class="cot">
+        <th>Tên Khách Hàng</th>
+        <th>Tổng sản phẩm mua</th>
+        <th>Tổng tiền tanh toán</th>
+    </tr>
+    </thead>
+    <tbody class="main-sp">
+    <tr>
+
+    </tr>
+    </tbody>
+</table>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $(".btn-SearchRP").on("click", function(event) {
+            event.preventDefault();
+            var tungay = $(".tungay").val(),
+                denngay = $(".denngay").val();
+            var obj = new Object();
+            obj.TuNgay = tungay;
+            obj.Denngay = denngay;
+            $.ajax({
+                url: "/Reprot/SearchCustomer",
+                type: "POST",
+                data: JSON.stringify(obj),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (data) {
+                    console.log(data);
+                    var html = "";
+                    $.each(data, function(k, v) {
+                        html += "<tr>";
+                        html += "<td>" + v.CustomerName + "</td>";
+                        html += "<td>" + v.TotalProduct + "</td>";
+                        html += "<td>" + v.TotalMoney + "</td>";
+                        html += "</tr>";
+                    });
+                    $(".main-sp").html(html);
+                }
+            });
+        });
+    });
+</script>

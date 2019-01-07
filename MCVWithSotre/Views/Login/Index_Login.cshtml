@@ -1,0 +1,91 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>Index_Login</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+</head>
+<body>
+    <div class="container">
+        <h1>Login</h1>
+        <div class="row">
+            <div class="col-md-8">
+                <section id="loginForm">
+
+                    <h4>Use a local account to log in.</h4>
+                    <hr />
+                    <div class="row">
+                        <div class="col-md-2">
+                            Tài Khoản:
+                        </div>
+                        <div class="col-md-4">
+                            <input class="form-control taikhoan" type="text" value="" />
+                        </div>
+                        <div class="col-md-6">
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-2">
+                            Mật Khẩu:
+                        </div>
+                        <div class="col-md-4">
+                            <input class="form-control matkhau" type="text" value="" />
+                        </div>
+                        <div class="col-md-6">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10">
+                            <input type="submit" value="Log in" class="btn btn-default btn-dangnhap" />
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $(".btn-dangnhap").on("click", function(event) {
+            event.preventDefault();
+            var taikhoan = $(".taikhoan").val().trim(),
+                matkhau = $(".matkhau").val().trim();
+            if (taikhoan === "") {
+                alert("Nhap ten tai khoan!!!");
+                return;
+            }
+            if (matkhau === "") {
+                alert("Nhap mat khau!!!");
+                return;
+            }
+            var obj = new Object();
+            obj.AccountEmployee = taikhoan;
+            obj.C_Password = matkhau;
+            $.ajax({
+                url: "/Login/login",
+                type: "POST",
+                data: JSON.stringify(obj),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (lg) {
+                    if (lg === "OK") {
+                        window.location = "/tbl_Product/Index";
+                    } else {
+                        alert("Sai thong tin dang nhap!!!");
+                    }
+                }
+            });
+        });
+    });
+</script>
+</body>
+</html>

@@ -1,0 +1,228 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="BANHANG_THUCTAPModelStoreContainer" CdmEntityContainer="BANHANG_THUCTAPEntities">
+    <FunctionImportMapping FunctionImportName="sp_Product_Delete" FunctionName="BANHANG_THUCTAPModel.Store.sp_Product_Delete" />
+    <FunctionImportMapping FunctionImportName="sp_Product_Save" FunctionName="BANHANG_THUCTAPModel.Store.sp_Product_Save" />
+    <FunctionImportMapping FunctionImportName="sp_GoupProduct_List" FunctionName="BANHANG_THUCTAPModel.Store.sp_GoupProduct_List">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="BANHANG_THUCTAPModel.sp_GoupProduct_List_Result">
+          <ScalarProperty Name="GroupProductID" ColumnName="GroupProductID" />
+          <ScalarProperty Name="GroupName" ColumnName="GroupName" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="CreateBy" ColumnName="CreateBy" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="sp_Employee_List" FunctionName="BANHANG_THUCTAPModel.Store.sp_Employee_List">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="BANHANG_THUCTAPModel.sp_Employee_List_Result">
+          <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
+          <ScalarProperty Name="EmployeeName" ColumnName="EmployeeName" />
+          <ScalarProperty Name="EmployeeAddress" ColumnName="EmployeeAddress" />
+          <ScalarProperty Name="EmployeePhonenumber" ColumnName="EmployeePhonenumber" />
+          <ScalarProperty Name="GroupEmployeeID" ColumnName="GroupEmployeeID" />
+          <ScalarProperty Name="AccountEmployee" ColumnName="AccountEmployee" />
+          <ScalarProperty Name="C_Password" ColumnName="_Password" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="CreateBy" ColumnName="CreateBy" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="sp_Customer_List" FunctionName="BANHANG_THUCTAPModel.Store.sp_Customer_List">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="BANHANG_THUCTAPModel.sp_Customer_List_Result">
+          <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
+          <ScalarProperty Name="CustomerName" ColumnName="CustomerName" />
+          <ScalarProperty Name="CustomerBirthday" ColumnName="CustomerBirthday" />
+          <ScalarProperty Name="CustomerAddress" ColumnName="CustomerAddress" />
+          <ScalarProperty Name="CustomerPhone" ColumnName="CustomerPhone" />
+          <ScalarProperty Name="GroupCustomerID" ColumnName="GroupCustomerID" />
+          <ScalarProperty Name="AccountCustomer" ColumnName="AccountCustomer" />
+          <ScalarProperty Name="C_Password" ColumnName="_Password" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="sp_Order_List" FunctionName="BANHANG_THUCTAPModel.Store.sp_Order_List">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="BANHANG_THUCTAPModel.sp_Order_List_Result">
+          <ScalarProperty Name="OrderID" ColumnName="OrderID" />
+          <ScalarProperty Name="OrderCode" ColumnName="OrderCode" />
+          <ScalarProperty Name="OrderName" ColumnName="OrderName" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="CreateBy" ColumnName="CreateBy" />
+          <ScalarProperty Name="TotalProduct" ColumnName="TotalProduct" />
+          <ScalarProperty Name="MoneyDiscount" ColumnName="MoneyDiscount" />
+          <ScalarProperty Name="DiscountMoneyDirectly" ColumnName="DiscountMoneyDirectly" />
+          <ScalarProperty Name="TotalMoney" ColumnName="TotalMoney" />
+          <ScalarProperty Name="Inventory" ColumnName="Inventory" />
+          <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="sp_Order_Save" FunctionName="BANHANG_THUCTAPModel.Store.sp_Order_Save" />
+    <FunctionImportMapping FunctionImportName="sp_OrderDetail_Save" FunctionName="BANHANG_THUCTAPModel.Store.sp_OrderDetail_Save" />
+    <EntitySetMapping Name="tbl_Customer">
+      <EntityTypeMapping TypeName="BANHANG_THUCTAPModel.tbl_Customer">
+        <MappingFragment StoreEntitySet="tbl_Customer">
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="C_Password" ColumnName="_Password" />
+          <ScalarProperty Name="AccountCustomer" ColumnName="AccountCustomer" />
+          <ScalarProperty Name="GroupCustomerID" ColumnName="GroupCustomerID" />
+          <ScalarProperty Name="CustomerPhone" ColumnName="CustomerPhone" />
+          <ScalarProperty Name="CustomerAddress" ColumnName="CustomerAddress" />
+          <ScalarProperty Name="CustomerBirthday" ColumnName="CustomerBirthday" />
+          <ScalarProperty Name="CustomerName" ColumnName="CustomerName" />
+          <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_Employee">
+      <EntityTypeMapping TypeName="BANHANG_THUCTAPModel.tbl_Employee">
+        <MappingFragment StoreEntitySet="tbl_Employee">
+          <ScalarProperty Name="CreateBy" ColumnName="CreateBy" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="C_Password" ColumnName="_Password" />
+          <ScalarProperty Name="AccountEmployee" ColumnName="AccountEmployee" />
+          <ScalarProperty Name="GroupEmployeeID" ColumnName="GroupEmployeeID" />
+          <ScalarProperty Name="EmployeePhonenumber" ColumnName="EmployeePhonenumber" />
+          <ScalarProperty Name="EmployeeAddress" ColumnName="EmployeeAddress" />
+          <ScalarProperty Name="EmployeeName" ColumnName="EmployeeName" />
+          <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_GroupCustomer">
+      <EntityTypeMapping TypeName="BANHANG_THUCTAPModel.tbl_GroupCustomer">
+        <MappingFragment StoreEntitySet="tbl_GroupCustomer">
+          <ScalarProperty Name="CreateBy" ColumnName="CreateBy" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="GroupCustomerName" ColumnName="GroupCustomerName" />
+          <ScalarProperty Name="GroupCustomerID" ColumnName="GroupCustomerID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_GroupProduct">
+      <EntityTypeMapping TypeName="BANHANG_THUCTAPModel.tbl_GroupProduct">
+        <MappingFragment StoreEntitySet="tbl_GroupProduct">
+          <ScalarProperty Name="CreateBy" ColumnName="CreateBy" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="GroupName" ColumnName="GroupName" />
+          <ScalarProperty Name="GroupProductID" ColumnName="GroupProductID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_GroupUser">
+      <EntityTypeMapping TypeName="BANHANG_THUCTAPModel.tbl_GroupUser">
+        <MappingFragment StoreEntitySet="tbl_GroupUser">
+          <ScalarProperty Name="CreateBy" ColumnName="CreateBy" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="GroupUserName" ColumnName="GroupUserName" />
+          <ScalarProperty Name="GroupUserID" ColumnName="GroupUserID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_Manager">
+      <EntityTypeMapping TypeName="BANHANG_THUCTAPModel.tbl_Manager">
+        <MappingFragment StoreEntitySet="tbl_Manager">
+          <ScalarProperty Name="C_Password" ColumnName="_Password" />
+          <ScalarProperty Name="AccountManager" ColumnName="AccountManager" />
+          <ScalarProperty Name="ManagerName" ColumnName="ManagerName" />
+          <ScalarProperty Name="ManagerID" ColumnName="ManagerID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_OrderDetail">
+      <EntityTypeMapping TypeName="BANHANG_THUCTAPModel.tbl_OrderDetail">
+        <MappingFragment StoreEntitySet="tbl_OrderDetail">
+          <ScalarProperty Name="TotalMoney" ColumnName="TotalMoney" />
+          <ScalarProperty Name="MoneyDiscount" ColumnName="MoneyDiscount" />
+          <ScalarProperty Name="Discount" ColumnName="Discount" />
+          <ScalarProperty Name="PriceProduct" ColumnName="PriceProduct" />
+          <ScalarProperty Name="Quanlity" ColumnName="Quanlity" />
+          <ScalarProperty Name="ProductID" ColumnName="ProductID" />
+          <ScalarProperty Name="OrderID" ColumnName="OrderID" />
+          <ScalarProperty Name="OrderDetailID" ColumnName="OrderDetailID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_Product">
+      <EntityTypeMapping TypeName="BANHANG_THUCTAPModel.tbl_Product">
+        <MappingFragment StoreEntitySet="tbl_Product">
+          <ScalarProperty Name="Quanlity" ColumnName="Quanlity" />
+          <ScalarProperty Name="ProductCode" ColumnName="ProductCode" />
+          <ScalarProperty Name="GroupProductID" ColumnName="GroupProductID" />
+          <ScalarProperty Name="CreateBy" ColumnName="CreateBy" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="PriceProduct" ColumnName="PriceProduct" />
+          <ScalarProperty Name="ProductName" ColumnName="ProductName" />
+          <ScalarProperty Name="ProductID" ColumnName="ProductID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_Receipt">
+      <EntityTypeMapping TypeName="BANHANG_THUCTAPModel.tbl_Receipt">
+        <MappingFragment StoreEntitySet="tbl_Receipt">
+          <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
+          <ScalarProperty Name="CreateBy" ColumnName="CreateBy" />
+          <ScalarProperty Name="CreateDay" ColumnName="CreateDay" />
+          <ScalarProperty Name="ReceiptID" ColumnName="ReceiptID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="sp_OrderCustomer_RP" FunctionName="BANHANG_THUCTAPModel.Store.sp_OrderCustomer_RP">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="BANHANG_THUCTAPModel.sp_OrderCustomer_RP_Result">
+          <ScalarProperty Name="CustomerName" ColumnName="CustomerName" />
+          <ScalarProperty Name="TotalProduct" ColumnName="TotalProduct" />
+          <ScalarProperty Name="TotalMoney" ColumnName="TotalMoney" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="sp_ReportCustomer_RP" FunctionName="BANHANG_THUCTAPModel.Store.sp_ReportCustomer_RP">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="BANHANG_THUCTAPModel.sp_ReportCustomer_RP_Result">
+          <ScalarProperty Name="CustomerName" ColumnName="CustomerName" />
+          <ScalarProperty Name="ProductName" ColumnName="ProductName" />
+          <ScalarProperty Name="CreateBy" ColumnName="CreateBy" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="TotalProduct" ColumnName="TotalProduct" />
+          <ScalarProperty Name="TotalMoney" ColumnName="TotalMoney" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="sp_xml_Product_Save" FunctionName="BANHANG_THUCTAPModel.Store.sp_xml_Product_Save" />
+    <FunctionImportMapping FunctionImportName="sp_Product_List" FunctionName="BANHANG_THUCTAPModel.Store.sp_Product_List">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="BANHANG_THUCTAPModel.sp_Product_List_Result">
+          <ScalarProperty Name="ProductID" ColumnName="ProductID" />
+          <ScalarProperty Name="ProductName" ColumnName="ProductName" />
+          <ScalarProperty Name="PriceProduct" ColumnName="PriceProduct" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="CreateBy" ColumnName="CreateBy" />
+          <ScalarProperty Name="GroupProductID" ColumnName="GroupProductID" />
+          <ScalarProperty Name="ProductCode" ColumnName="ProductCode" />
+          <ScalarProperty Name="Quanlity" ColumnName="Quanlity" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <EntitySetMapping Name="tbl_Order">
+      <EntityTypeMapping TypeName="BANHANG_THUCTAPModel.tbl_Order">
+        <MappingFragment StoreEntitySet="tbl_Order">
+          <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
+          <ScalarProperty Name="DiscountMoneyDirectly" ColumnName="DiscountMoneyDirectly" />
+          <ScalarProperty Name="MoneyDiscount" ColumnName="MoneyDiscount" />
+          <ScalarProperty Name="TotalMoney" ColumnName="TotalMoney" />
+          <ScalarProperty Name="TotalProduct" ColumnName="TotalProduct" />
+          <ScalarProperty Name="CreateBy" ColumnName="CreateBy" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="OrderName" ColumnName="OrderName" />
+          <ScalarProperty Name="OrderCode" ColumnName="OrderCode" />
+          <ScalarProperty Name="OrderID" ColumnName="OrderID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="sp_OrderDetail_xml_Save" FunctionName="BANHANG_THUCTAPModel.Store.sp_OrderDetail_xml_Save" />
+    <FunctionImportMapping FunctionImportName="sp_OrderOrderDetail_xml_Save" FunctionName="BANHANG_THUCTAPModel.Store.sp_OrderOrderDetail_xml_Save" />
+  </EntityContainerMapping>
+</Mapping>

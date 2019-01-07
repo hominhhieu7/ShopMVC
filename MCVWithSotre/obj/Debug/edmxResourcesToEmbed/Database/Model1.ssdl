@@ -1,0 +1,190 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="BANHANG_THUCTAPModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="tbl_Customer">
+    <Key>
+      <PropertyRef Name="CustomerID" />
+    </Key>
+    <Property Name="CustomerID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CustomerName" Type="nvarchar" MaxLength="50" />
+    <Property Name="CustomerBirthday" Type="datetime" />
+    <Property Name="CustomerAddress" Type="nvarchar" MaxLength="50" />
+    <Property Name="CustomerPhone" Type="bigint" />
+    <Property Name="GroupCustomerID" Type="int" />
+    <Property Name="AccountCustomer" Type="varchar" MaxLength="50" />
+    <Property Name="_Password" Type="varchar" MaxLength="50" />
+    <Property Name="CreateDate" Type="datetime" />
+  </EntityType>
+  <EntityType Name="tbl_Employee">
+    <Key>
+      <PropertyRef Name="EmployeeID" />
+    </Key>
+    <Property Name="EmployeeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="EmployeeName" Type="nvarchar" MaxLength="50" />
+    <Property Name="EmployeeAddress" Type="varchar" MaxLength="50" />
+    <Property Name="EmployeePhonenumber" Type="bigint" />
+    <Property Name="GroupEmployeeID" Type="int" />
+    <Property Name="AccountEmployee" Type="varchar" MaxLength="50" />
+    <Property Name="_Password" Type="varchar" MaxLength="50" />
+    <Property Name="CreateDate" Type="datetime" />
+    <Property Name="CreateBy" Type="int" />
+  </EntityType>
+  <EntityType Name="tbl_GroupCustomer">
+    <Key>
+      <PropertyRef Name="GroupCustomerID" />
+    </Key>
+    <Property Name="GroupCustomerID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="GroupCustomerName" Type="nvarchar" MaxLength="50" />
+    <Property Name="CreateDate" Type="datetime" />
+    <Property Name="CreateBy" Type="int" />
+  </EntityType>
+  <EntityType Name="tbl_GroupProduct">
+    <Key>
+      <PropertyRef Name="GroupProductID" />
+    </Key>
+    <Property Name="GroupProductID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="GroupName" Type="nvarchar" MaxLength="50" />
+    <Property Name="CreateDate" Type="datetime" />
+    <Property Name="CreateBy" Type="int" />
+  </EntityType>
+  <EntityType Name="tbl_GroupUser">
+    <Key>
+      <PropertyRef Name="GroupUserID" />
+    </Key>
+    <Property Name="GroupUserID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="GroupUserName" Type="nvarchar" MaxLength="50" />
+    <Property Name="CreateDate" Type="datetime" />
+    <Property Name="CreateBy" Type="int" />
+  </EntityType>
+  <EntityType Name="tbl_Manager">
+    <Key>
+      <PropertyRef Name="ManagerID" />
+    </Key>
+    <Property Name="ManagerID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ManagerName" Type="nvarchar" MaxLength="50" />
+    <Property Name="AccountManager" Type="varchar" MaxLength="50" />
+    <Property Name="_Password" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="tbl_Order">
+    <Key>
+      <PropertyRef Name="OrderID" />
+    </Key>
+    <Property Name="OrderID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="OrderCode" Type="varchar" MaxLength="50" />
+    <Property Name="OrderName" Type="nvarchar" MaxLength="50" />
+    <Property Name="CreateDate" Type="datetime" />
+    <Property Name="CreateBy" Type="int" />
+    <Property Name="TotalProduct" Type="int" />
+    <Property Name="TotalMoney" Type="float" />
+    <Property Name="MoneyDiscount" Type="float" />
+    <Property Name="DiscountMoneyDirectly" Type="float" />
+    <Property Name="CustomerId" Type="int" />
+  </EntityType>
+  <EntityType Name="tbl_OrderDetail">
+    <Key>
+      <PropertyRef Name="OrderDetailID" />
+    </Key>
+    <Property Name="OrderDetailID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="OrderID" Type="int" />
+    <Property Name="ProductID" Type="int" />
+    <Property Name="Quanlity" Type="int" />
+    <Property Name="PriceProduct" Type="float" />
+    <Property Name="Discount" Type="float" />
+    <Property Name="MoneyDiscount" Type="float" />
+    <Property Name="TotalMoney" Type="float" />
+  </EntityType>
+  <EntityType Name="tbl_Product">
+    <Key>
+      <PropertyRef Name="ProductID" />
+    </Key>
+    <Property Name="ProductID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ProductName" Type="nvarchar" MaxLength="50" />
+    <Property Name="PriceProduct" Type="float" />
+    <Property Name="CreateDate" Type="datetime" />
+    <Property Name="CreateBy" Type="int" />
+    <Property Name="GroupProductID" Type="int" />
+    <Property Name="ProductCode" Type="varchar" MaxLength="50" />
+    <Property Name="Quanlity" Type="int" />
+  </EntityType>
+  <EntityType Name="tbl_Receipt">
+    <Key>
+      <PropertyRef Name="ReceiptID" />
+    </Key>
+    <Property Name="ReceiptID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CreateDay" Type="datetime" />
+    <Property Name="CreateBy" Type="int" />
+    <Property Name="CustomerID" Type="int" />
+  </EntityType>
+  <Function Name="sp_Customer_List" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="CustomerID" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_Employee_List" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="EmployeeID" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_GoupProduct_List" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="GroupProductId" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_Order_List" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="OrderId" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_Order_Save" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="OrderId" Type="int" Mode="In" />
+    <Parameter Name="OrderCode" Type="varchar" Mode="In" />
+    <Parameter Name="OrderName" Type="nvarchar" Mode="In" />
+    <Parameter Name="CreateBy" Type="int" Mode="In" />
+    <Parameter Name="TotalProduct" Type="int" Mode="In" />
+    <Parameter Name="MoneyDiscount" Type="float" Mode="In" />
+    <Parameter Name="DiscountMoneyDirectly" Type="float" Mode="In" />
+    <Parameter Name="TotalMoney" Type="float" Mode="In" />
+    <Parameter Name="CustomerId" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_OrderCustomer_RP" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="tungay" Type="datetime" Mode="In" />
+    <Parameter Name="denngay" Type="datetime" Mode="In" />
+  </Function>
+  <Function Name="sp_OrderDetail_Save" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="OrderId" Type="int" Mode="In" />
+    <Parameter Name="ProductId" Type="int" Mode="In" />
+    <Parameter Name="Quanlity" Type="int" Mode="In" />
+    <Parameter Name="PriceProduct" Type="float" Mode="In" />
+    <Parameter Name="Discount" Type="float" Mode="In" />
+    <Parameter Name="MoneyDiscount" Type="float" Mode="In" />
+    <Parameter Name="TotalMoney" Type="float" Mode="In" />
+  </Function>
+  <Function Name="sp_OrderDetail_xml_Save" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="XmlParameter" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="sp_OrderOrderDetail_xml_Save" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="XmlParameter" Type="nvarchar(max)" Mode="In" />
+  </Function>
+  <Function Name="sp_Product_Delete" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="ProductId" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_Product_List" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="ProductId" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_Product_Save" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="ProductId" Type="int" Mode="In" />
+    <Parameter Name="ProductName" Type="nvarchar" Mode="In" />
+    <Parameter Name="PriceProduct" Type="float" Mode="In" />
+    <Parameter Name="CreateBy" Type="int" Mode="In" />
+    <Parameter Name="GroupProductId" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_ReportCustomer_RP" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="CustomerId" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_xml_Product_Save" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="XmlParameter" Type="nvarchar(max)" Mode="In" />
+  </Function>
+  <EntityContainer Name="BANHANG_THUCTAPModelStoreContainer">
+    <EntitySet Name="tbl_Customer" EntityType="Self.tbl_Customer" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tbl_Employee" EntityType="Self.tbl_Employee" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tbl_GroupCustomer" EntityType="Self.tbl_GroupCustomer" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tbl_GroupProduct" EntityType="Self.tbl_GroupProduct" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tbl_GroupUser" EntityType="Self.tbl_GroupUser" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tbl_Manager" EntityType="Self.tbl_Manager" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tbl_Order" EntityType="Self.tbl_Order" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tbl_OrderDetail" EntityType="Self.tbl_OrderDetail" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tbl_Product" EntityType="Self.tbl_Product" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tbl_Receipt" EntityType="Self.tbl_Receipt" Schema="dbo" store:Type="Tables" />
+  </EntityContainer>
+</Schema>

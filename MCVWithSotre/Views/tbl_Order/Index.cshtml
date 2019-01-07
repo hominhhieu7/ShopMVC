@@ -1,0 +1,291 @@
+﻿@using MCVWithSotre.Database
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var dataProduct = ViewBag.ListDataProduct as IEnumerable<sp_Product_List_Result>;
+    var dataCustomer = ViewBag.ListDataCustomer as IEnumerable<sp_Customer_List_Result>;
+}
+<form method="POST" action="/tbl_Order/Addnew">
+    <div class="container">
+        <h1>Giao diện bán hàng</h1>
+        <div class="row" style="margin-bottom: 15px">
+            <div class="col-md-3">
+                <select class="form-control listkh">
+                    <option value="0">Chon khach hang</option>
+                    @foreach (var item in dataCustomer)
+                    {
+                        <option data-gia="" value="@item.CustomerID">@item.CustomerName</option>
+                    }
+                </select>
+            </div>
+            <div class="col-md-3">
+                <select class="form-control listsp">
+                    <option value="0">Chon san pham</option>
+                    @foreach (var item in dataProduct)
+                    {
+                        <option data-gia="@item.PriceProduct" data-ProductID="@item.ProductID" value="@item.ProductCode">@item.ProductName</option>
+                    }
+                </select>
+            </div>
+            <div class="col-md-3">
+                <input type="text" class="form-control masp" placeholder="Mã sản phẩm" />
+            </div>
+            <div class="col-md-2">
+                <input type="text" class="form-control soluong" placeholder="Số Lượng" />
+            </div>
+            <div class="col-md-1">
+                <input type="button" class="btn btn-danger btn-addProduct" value="Add" />
+            </div>
+        </div>
+        <table class="table">
+            <thead>
+                <tr class="cot">
+                    <th>Mã sản phẩm</th>
+                    <th>Tên sản phẩm</th>
+                    <th>Giá</th>
+                    <th>Số lượng</th>
+                    <th>Giảm giá(%)</th>
+                    <th>Giảm giá trực tiếp</th>
+                    <th>Thành tiền</th>
+                </tr>
+            </thead>
+            <tbody class="main-sp">
+            
+            </tbody>
+        </table>
+        <div class="row">
+            <div class="col-md-3" >
+
+            </div>
+            <div class="col-md-3">
+                Tổng tiền : <span class="tongtien">0</span>
+            </div>
+            <div class="col-md-3">
+                Tổng giảm : <span class="tonggiam">0</span>
+            </div>
+            <div class="col-md-3">
+                Tổng thanh toán : <span class="tongthanhtoan">0</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4">
+            </div>
+            <div class="col-md-4">
+            </div>
+            <div class="col-md-4">
+                <input type="submit" class="btn btn-success btn-save" value="Save" />
+            </div>
+        </div>
+    </div>
+</form>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script>
+    
+
+    $(document).ready(function () {
+        var count = 0;
+        //loadproduct();
+        $(".listsp").on("change", function(event) {
+            event.preventDefault();
+            var _this = $(this).find("option:selected"),
+                masp = _this.val();
+            $(".masp").val(masp);
+        });
+
+        $(".btn-save1").on("click", function(event) {
+            event.preventDefault();
+            var tongtien = $(".tongtien").text(),
+                tonggiam = $(".tonggiam").text(),
+                tongthanhtoan = $(".tongthanhtoan").text(),
+                CustomerId = $(".listkh").val();
+            var od = new Object();
+            od.TotalMoney = tongtien;
+            od.MoneyDiscount = tonggiam;
+            od.DiscountMoneyDirectly = tongthanhtoan;
+            od.CustomerId = CustomerId;
+
+            var OrderDetail = [], count = 0;
+            // lay bang detail
+            $(".main-sp").find("tr").each(function() {
+                var _this = $(this);
+
+                var oddetail = new Object();
+                oddetail.ProductID = _this.attr("data-productid");
+                oddetail.Quanlity = _this.find("td:eq(3)").text();
+                oddetail.PriceProduct = _this.find("td:eq(2)").text();
+                oddetail.Discount = _this.find("td:eq(4) input").val();
+                oddetail.MoneyDiscount = _this.find("td:eq(5) input").val();
+                oddetail.TotalMoney = _this.find("td:eq(6)").text();
+
+                OrderDetail.push(oddetail);
+                count++;
+            });
+            od.OrderDetail = OrderDetail;
+            od.TotalProduct = count;
+
+
+            $.ajax({
+                url: "/tbl_Order/Addnew",
+                type: "POST",
+                data: JSON.stringify(od),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (data) {
+                    alert("luu ok");
+                }
+            });
+        });
+        $(".btn-save").on("click", function(event) {
+            event.preventDefault();
+            var tongtien = $(".tongtien").text(),
+                tonggiam = $(".tonggiam").text(),
+                tongthanhtoan = $(".tongthanhtoan").text(),
+                CustomerId = $(".listkh").val();
+            var OrderDetail = "";
+            //Duyệt dòng ở bảng OrderDetail
+            $(".main-sp").find("tr").each(function () {
+                var _this = $(this);
+                ProductId = _this.attr("data-productid");
+                Quanlity = _this.find("td:eq(3)").text();
+                PriceProduct = _this.find("td:eq(2)").text();
+                Discount = _this.find("td:eq(4) input").val();
+                MoneyDiscount = _this.find("td:eq(5) input").val();
+                TotalMoney = _this.find("td:eq(6)").text();
+                OrderDetail += "<OrderDetail>";
+                OrderDetail += "<ProductId>" + ProductId + "</ProductId>";
+                OrderDetail += "<Quanlity>" + Quanlity + "</Quanlity>";
+                OrderDetail += "<PriceProduct>" + PriceProduct + "</PriceProduct>";
+                OrderDetail += "<Discount>" + Discount + "</Discount>";
+                OrderDetail += "<MoneyDiscount>" + MoneyDiscount + "</MoneyDiscount>";
+                OrderDetail += "<TotalMoney>" + TotalMoney + "</TotalMoney>";
+                OrderDetail += "</OrderDetail>";
+                count++;
+            });
+                //Lưu bảng Order
+                var xml = "";
+                xml += "<Root><Order>";
+                xml += "<OrderID>0</OrderID>";
+                xml += "<OrderCode>0</OrderCode>";
+                xml += "<OrderName>0</OrderName>";
+                xml += "<CreateBy>0</CreateBy>";
+                xml += "<TotalProduct>" + count +"</TotalProduct>";
+                xml += "<TotalMoney>" + tongtien + "</TotalMoney>";
+                xml += "<MoneyDiscount>" + tonggiam + "</MoneyDiscount>";
+                xml += "<DiscountMoneyDirectly>" + tongthanhtoan + "</DiscountMoneyDirectly>";
+                xml += "<CustomerId>" + CustomerId + "</CustomerId>";
+                xml += "</Order>";
+                xml += OrderDetail;
+                xml += "</Root>";
+                $.ajax({
+                    url: "/tbl_Order/Addnew",
+                    type: "POST",
+                    data: JSON.stringify({ xml: xml }),
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function () {
+                        alert("luu ok");
+                    }
+                });
+        });
+
+        $(".btn-addProduct").on("click", function(event) {
+            event.preventDefault();
+            var sp = $(".listsp").find("option:selected"),
+                soluong = $(".soluong").val(),
+                html = "",
+                thanhtien = 0;
+            // giamgia
+            //console.log(sp.val().trim()); //debug web
+            if ($("." + sp.val()).length > 0) {
+
+                var objold = $("." + sp.val()), // khai báo object cũ
+                    priceold = objold.find("td:eq(2)").text().trim(), // lấy giá trị của giá cũ gán vào priceold .trim loại bỏ khoảng trắng
+                    slold = objold.find("td:eq(3)").text().trim(), // lấy giá trị của số lượng cũ gán vào slold
+                    slnew = parseInt(soluong) + parseInt(slold); // lấy gán slold + số lượng vừa nhập
+                    objold.find("td:eq(3)").text(slnew); // obj tìm tới cột thứ 0-1-2-3 đưa giá trị vào bảng
+                    thanhtien = slnew * parseFloat(priceold);
+                    objold.find("td:eq(6)").text(thanhtien);// tương tự ở trên đẩy giá trị thành tiền
+
+                //add vao tong tien don hang
+                var tt = $(".tongtien").text(),
+                    ttt = $(".tongthanhtoan").text();
+
+                $(".tongtien").text((parseInt(tt) - parseInt(priceold)) + thanhtien);
+                $(".tongthanhtoan").text((parseInt(ttt) - parseInt(priceold)) + thanhtien);
+            }else {
+                thanhtien = (parseFloat(sp.attr("data-gia")) * parseInt(soluong));
+                html += "<tr class='" + sp.val() + "' data-productid='" + sp.attr("data-ProductID") + "' data-giagiam='0'>"; // thêm class  mã sp(sp.val()) vào table
+                html += "<td name='OrderCode' >" + sp.val() + "</td>";
+                html += "<td name='OrderName'>" + sp.text() + "</td>";
+                html += "<td name='TotalProduct'>" + sp.attr("data-gia") + "</td>";
+                html += "<td>" + soluong + "</td>";
+                html += "<td>" + "<input type = 'text' class='giamgia' onchange='giamgia(this)' value='0' />" + "</td>";
+                html += "<td>" + "<input type = 'text' class='giamgiatructiep' onchange='giamgiatructiep(this)'  value='0' />" + "</td>";
+                html += "<td>" + thanhtien + "</td>";
+                html += "</tr>";
+                $(".main-sp").prepend(html);
+
+                //add vao tong tien don hang
+                var tt = $(".tongtien").text(),
+                    ttt = $(".tongthanhtoan").text();
+
+                $(".tongtien").text(parseInt(tt) + thanhtien);
+                $(".tongthanhtoan").text(parseInt(ttt) + thanhtien);
+            }
+        });
+    });
+    //function loadproduct() {
+    //    var listproduct = [
+    //        { Masp: 'OVW', Tensp: 'Overwatch', gia: '1000' },
+    //        { Masp: 'GTAV', Tensp: 'Grand Theft Auto 5', gia: '2000' },
+    //        { Masp: 'CSGO', Tensp: 'Counter-Strike: Global Offensive', gia: '3000' },
+    //        { Masp: 'ARK', Tensp: 'ARK: Survival Evolved', gia: '4000' },
+    //        { Masp: 'PUBG', Tensp: 'PlayerUnknown Battlegrounds', gia: '5000' }
+    //    ];
+    //    var html = "";
+    //    $.each(listproduct, function (k, v) {
+    //        html += "<option data-gia='" + v.gia + "' value='" + v.Masp + "'>" + v.Tensp + "</option>";
+    //    });
+    //    $(".listsp").html(html);
+    //}
+    function giamgia(obj) {
+        var sogiamgia = $(obj).val();
+        var sotien = $(obj).closest("tr").find("td:eq(6)").text().trim();//số tiền hiện tại
+        var phantramgiam = $(obj).closest("tr").attr("data-giagiam");//lưu phần trăm giảm ban đầu
+        var tinhtien = (parseFloat(sogiamgia) * parseFloat(sotien)) / 100;
+        var sotiendagiam = (parseFloat(sotien) * parseFloat(phantramgiam) / 100);
+        //var sotien = $(obj).closest("tr").find("td:eq(5)").text().trim();
+        //gan tien sau tinh
+        if (sogiamgia !== "" && sogiamgia !== "0") {
+            var tiengg = (parseFloat(sotien) + parseFloat(sotiendagiam) - tinhtien);
+            $(obj).closest("tr").find("td:eq(6)").text(tiengg);
+            //luu lich su tien da giam
+            $(obj).closest("tr").attr("data-giagiam", sogiamgia);
+        }
+        else {
+            //var tienlichsu = $(obj).closest("tr").attr("data-giagiam");
+            $(obj).closest("tr").find("td:eq(6)").text(parseFloat(sotien) + sotiendagiam);
+        }
+        var tg = $(".tonggiam").text(),
+            ttt = $(".tongthanhtoan").text(),
+            sotiengiam = $(".tonggiam").text(parseInt(tg) + tinhtien);
+        $(".tongthanhtoan").text(parseInt(ttt) - sotiengiam);
+    }
+    function giamgiatructiep(obj) {
+        var sogiamgia = $(obj).val();
+        var sotien = $(obj).closest("tr").find("td:eq(6)").text().trim();
+        var giamls = $(obj).closest("tr").attr("data-giagiam");
+        if (sogiamgia !== "0" && sogiamgia !== "") {
+            var tiengg = (parseFloat(sotien) + parseFloat(giamls)) - parseFloat(sogiamgia);
+            $(obj).closest("tr").find("td:eq(6)").text(tiengg);
+            $(obj).closest("tr").attr("data-giagiam", sogiamgia);
+        } else {
+
+            $(obj).closest("tr").find("td:eq(6)").text((parseFloat(sotien) + parseFloat(giamls)));
+        }
+    }
+</script>
